@@ -1,0 +1,12 @@
+header {
+    text-align: center;
+    background-image: var(--bs-gradient);
+    background-color: rgb(0, 147, 205);
+    color: white;
+}
+
+.fore-card {
+    background-color: rgb(0, 104, 152);
+    color: white;
+    border: rgb(158, 158, 158) solid 1px;
+}
