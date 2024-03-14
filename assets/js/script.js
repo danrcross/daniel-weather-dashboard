@@ -12,7 +12,7 @@ var savedList = $('#saved-list')
 var foreHeader = $('#fore-header')
 var icon = $('.icon')
 var weatherDataSection = $('#weather-data')
-var degSym= '\u00B0'
+var degSym = '\u00B0'
 var curWeatherData
 var searchResult
 // for debugging
@@ -168,33 +168,53 @@ function dispCurWeather(data) {
     var thisWeather = data.list[0]
     iconId = thisWeather.weather[0].icon
     var date = convertDate(thisWeather.dt_txt)
-    var temp = "Temperature: " + thisWeather.main.temp  + " " + degSym + "F"
-    var humidity = "Humidity: " + thisWeather.main.humidity + " %"
-    var wind = "Wind: " + thisWeather.wind.speed + " MPH"
+    var temp = "Temp: "
+    var humidity = "Humidity: "
+    var wind = "Wind: "
     plugIcon(iconId)
     var addIcon = $('<img>').attr('src', iconUrl)
     cityNameDisplay.append(" (" + date + ")")
     cityNameDisplay.append(addIcon)
 
-    addConditionCur(temp)
-    addConditionCur(humidity)
-    addConditionCur(wind)
+    addConditionCur(temp, thisWeather)
+    addConditionCur(humidity, thisWeather)
+    addConditionCur(wind, thisWeather)
 }
 
-function addConditionCur(condition) {
+function addConditionCur(condition, thisWeather) {
     var listCondition = $('<li>').text(condition).addClass('list-group-item')
     conditionsList.append(listCondition)
+    if (condition === "Temp: ") {
+        var tempAdd = $("<pre>").text(thisWeather.main.temp + " " + degSym + "F")
+        tempAdd.appendTo(listCondition)
+    } else if (condition === 'Humidity: ') {
+        var humAdd = $("<pre>").text(thisWeather.main.humidity + " %")
+        humAdd.appendTo(listCondition)
+    } else if (condition === 'Wind: ') {
+        var windAdd = $("<pre>").text(thisWeather.wind.speed + " MPH")
+        windAdd.appendTo(listCondition)
+    }else {
+        console.log('this broken')
+    }
 }
 
-function addConditionFore(condition, section) {
+function addConditionFore(condition, section, thisWeather) {
     var listCondition = $('<li>').text(condition).addClass('list-group-item')
     section.append(listCondition)
+    if (condition === "Temp: ") {
+        var tempAdd = $("<pre>").text(thisWeather.main.temp + " " + degSym + "F")
+        tempAdd.appendTo(listCondition)
+    } else if (condition === 'Humidity: ') {
+        var humAdd = $("<pre>").text(thisWeather.main.humidity + " %")
+        humAdd.appendTo(listCondition)
+    } else if (condition === 'Wind: ') {
+        var windAdd = $("<pre>").text(thisWeather.wind.speed + " MPH")
+        windAdd.appendTo(listCondition)
+    }else {
+        console.log('this broken')
+    }
 }
 
-function getDay(data, item) {
-    convertDate()
-
-}
 
 function dispForecast(data) {
     // plus 8 index each day. 
@@ -236,16 +256,13 @@ function dispForecast(data) {
         section.html('')
         var thisWeather = daysArray[index]
 
-
-
-
-
-        var temp = "Temp: " + thisWeather.main.temp + " " + degSym + "F"
-        var humidity = "Humidity: " + thisWeather.main.humidity + " %"
-        var wind = "Wind: " + thisWeather.wind.speed + " MPH"
-        addConditionFore(temp, section)
-        addConditionFore(humidity, section)
-        addConditionFore(wind, section)
+        var temp = "Temp: "
+        var humidity = "Humidity: "
+        var wind = "Wind: "
+        console.log(temp)
+        addConditionFore(temp, section, thisWeather)
+        addConditionFore(humidity, section, thisWeather)
+        addConditionFore(wind, section, thisWeather)
     })
     foreHeader.text('5-Day Forecast:')
 

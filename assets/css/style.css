@@ -14,3 +14,7 @@ header {
 #city-name {
     color:white;
 }
+
+pre {
+    font-family: inherit;
+}
