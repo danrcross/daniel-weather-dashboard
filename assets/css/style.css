@@ -10,3 +10,7 @@ header {
     color: white;
     border: rgb(158, 158, 158) solid 1px;
 }
+
+#city-name {
+    color:white;
+}

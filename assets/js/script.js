@@ -12,6 +12,7 @@ var savedList = $('#saved-list')
 var foreHeader = $('#fore-header')
 var icon = $('.icon')
 var weatherDataSection = $('#weather-data')
+var degSym= '\u00B0'
 var curWeatherData
 var searchResult
 // for debugging
@@ -167,9 +168,9 @@ function dispCurWeather(data) {
     var thisWeather = data.list[0]
     iconId = thisWeather.weather[0].icon
     var date = convertDate(thisWeather.dt_txt)
-    var temp = "Temperature: " + thisWeather.main.temp
-    var humidity = "Humidity: " + thisWeather.main.humidity
-    var wind = "Wind: " + thisWeather.wind.speed
+    var temp = "Temperature: " + thisWeather.main.temp  + " " + degSym + "F"
+    var humidity = "Humidity: " + thisWeather.main.humidity + " %"
+    var wind = "Wind: " + thisWeather.wind.speed + " MPH"
     plugIcon(iconId)
     var addIcon = $('<img>').attr('src', iconUrl)
     cityNameDisplay.append(" (" + date + ")")
@@ -239,9 +240,9 @@ function dispForecast(data) {
 
 
 
-        var temp = "Temperature: " + thisWeather.main.temp
-        var humidity = "Humidity: " + thisWeather.main.humidity
-        var wind = "Wind: " + thisWeather.wind.speed
+        var temp = "Temp: " + thisWeather.main.temp + " " + degSym + "F"
+        var humidity = "Humidity: " + thisWeather.main.humidity + " %"
+        var wind = "Wind: " + thisWeather.wind.speed + " MPH"
         addConditionFore(temp, section)
         addConditionFore(humidity, section)
         addConditionFore(wind, section)
