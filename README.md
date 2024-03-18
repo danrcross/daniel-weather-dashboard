@@ -32,7 +32,7 @@ The site when a city is searched for:
 ![city-searched](/assets/screenshots/city-searched.png)
 
 The site when a search result is selected:
-![search-selected](/assets/screenshots/main-page.png)
+![search-selected](/assets/screenshots/search-selected.png)
 
 The site when a city has been saved and added to list; new search can be done:
 ![city-saved](/assets/screenshots/city-saved.png)
