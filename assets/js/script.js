@@ -25,8 +25,6 @@ var regexId = /\d{7}/
 
 
 // ON LOAD:
-// Fetch default weather (chicago)
-fetchWeather('chicago')
 // Fetch city list from local file
 fetch(cityListPath)
     .then(function (response) {
@@ -52,17 +50,6 @@ function plugCityId(id) {
 }
 
 // Fetches the weather API data for the city in question
-// function fetchWeather(city) {
-//     console.log(city)
-//     plugCity(city)
-//     fetch(weatherAPICustom)
-//         .then(function (response) {
-//             return response.json();
-//         })
-//         .then(function (data) {
-//             console.log(data)
-//         })
-// }
 // use of checking if city matches a regular expression inspired by this: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match
 function fetchWeather(city) {
     // Stores value of 'city' as a string in the object 'checkType'
@@ -157,11 +144,12 @@ function clickCity(event) {
     }
 }
 
+// Displays name of current city
 function dispCurCity(data) {
     cityNameDisplay.text(data.city.name)
 }
 
-// TO DO: practice creating a complex object and doing .forEach
+// Displays current weather data
 function dispCurWeather(data) {
     console.log(data)
     conditionsList.html('')
@@ -181,6 +169,7 @@ function dispCurWeather(data) {
     addConditionCur(wind, thisWeather)
 }
 
+// Adds current conditions for city
 function addConditionCur(condition, thisWeather) {
     var listCondition = $('<li>').text(condition).addClass('list-group-item')
     conditionsList.append(listCondition)
@@ -198,6 +187,7 @@ function addConditionCur(condition, thisWeather) {
     }
 }
 
+// Adds forecast conditions for city
 function addConditionFore(condition, section, thisWeather) {
     var listCondition = $('<li>').text(condition).addClass('list-group-item')
     section.append(listCondition)
@@ -215,7 +205,7 @@ function addConditionFore(condition, section, thisWeather) {
     }
 }
 
-
+// Displays forecast for city
 function dispForecast(data) {
     // plus 8 index each day. 
     // for day1
@@ -269,6 +259,7 @@ function dispForecast(data) {
 
 }
 
+// Calculates noon relative to timezone of city
 function calculateNoonHH(data) {
     // timezone value is in seconds
     var cTZoneSec = data.city.timezone
@@ -287,18 +278,21 @@ function calculateNoonHH(data) {
         cTZoneRound = (Math.floor(cTZoneHrs / 3)) * 3
     }
     console.log(cTZoneRound)
-    var noonAdjust = 15 - cTZoneRound
+    var noonAdjust = 12 - cTZoneRound
     return noonAdjust
 }
 
+// Sets value of item in local storage
 function toStorage(storage, object) {
     return localStorage.setItem(storage, JSON.stringify(object))
 }
 
+// Pulls value from item in local storage
 function fromStorage(storage) {
     return JSON.parse(localStorage.getItem(storage))
 }
 
+// Saves the city chosen into local storage, to be displayed in list of recent cities
 function saveCity(chosen) {
     // gets array from storage OR creates empty array to be added to and stored
     var citiesArray = fromStorage("saved-cities") || []
@@ -313,6 +307,7 @@ function saveCity(chosen) {
     toStorage("saved-cities", citiesArray)
 }
 
+// Loads list of recently selected cities
 function loadCities() {
     savedList.html('')
     var citiesArray = fromStorage("saved-cities") || []
@@ -325,6 +320,7 @@ function loadCities() {
     }
 }
 
+// Converts date from API data to a consistent format
 function convertDate(date) {
     var newDate = dayjs(date).format('MM/DD/YYYY')
     return newDate
